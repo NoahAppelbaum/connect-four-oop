@@ -20,7 +20,7 @@ class Game {
   makeBoard() {
     console.log("this at function top: ", this);
     for (let y = 0; y < this.height; y++) {
-      console.log("this inside loop: ", this);
+      console.log("this inside lfoop: ", this);
       this.board.push(Array.from({ length: this.width }));
     }
   }
@@ -87,23 +87,23 @@ class Game {
     const x = +evt.target.id.slice('top-'.length);
 
     // get next spot in column (if none, ignore click)
-    const y = findSpotForCol(x);
+    const y = this.findSpotForCol(x);
     if (y === null) {
       return;
     }
 
     // place piece in board and add to HTML table
     this.board[y][x] = currPlayer;
-    placeInTable(y, x);
+    this.placeInTable(y, x);
 
     // check for win
-    if (checkForWin()) {
-      return endGame(`Player ${currPlayer} won!`);
+    if (this.checkForWin()) {
+      return this.endGame(`Player ${currPlayer} won!`);
     }
 
     // check for tie
     if (this.board.every(row => row.every(cell => cell))) {
-      return endGame('Tie!');
+      return this.endGame('Tie!');
     }
 
     // switch players
