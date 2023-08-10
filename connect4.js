@@ -16,8 +16,11 @@ class Game {
   }
 
   /** makeBoard: create in-JS board structure:*/
+
   makeBoard() {
+    console.log("this at function top: ", this);
     for (let y = 0; y < this.height; y++) {
+      console.log("this inside loop: ", this);
       this.board.push(Array.from({ length: this.width }));
     }
   }
@@ -33,7 +36,7 @@ class Game {
     for (let x = 0; x < this.width; x++) {
       const headCell = document.createElement('td');
       headCell.setAttribute('id', x);
-      headCell.addEventListener('click', handleClick);
+      headCell.addEventListener('click', this.handleClick.bind(this));
       top.append(headCell);
     }
 
