@@ -84,7 +84,8 @@ class Game {
   /** handleClick: handle click of column top to play piece */
   handleClick(evt) {
     // get x from ID of clicked cell
-    const x = +evt.target.id.slice('top-'.length);
+    console.log("event target id: ", evt.target.id);
+    const x = +evt.target.id;
 
     // get next spot in column (if none, ignore click)
     const y = this.findSpotForCol(x);
@@ -97,7 +98,7 @@ class Game {
     this.placeInTable(y, x);
 
     // check for win
-    if (this.checkForWin()) {
+    if (this.checkForWin.call(this)) {
       return this.endGame(`Player ${currPlayer} won!`);
     }
 
@@ -125,6 +126,7 @@ class Game {
           this.board[y][x] === currPlayer
       );
     }
+    const thisWin = _win.bind(this);
 
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
@@ -136,7 +138,7 @@ class Game {
         const diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
 
         // find winner (only checking each win-possibility as needed)
-        if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
+        if (thisWin(horiz) || thisWin(vert) || thisWin(diagDR) || thisWin(diagDL)) {
           return true;
         }
       }
