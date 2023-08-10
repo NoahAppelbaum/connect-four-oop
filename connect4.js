@@ -7,7 +7,9 @@
 
 let currPlayer = 1; // active player: 1 or 2
 
-
+//TODO:put currPlayer into class
+//TODO:Start the actual game in constructor
+//TODO:global constants for magic numbers like height and width
 class Game {
   constructor(height = 7, width = 6) {
     this.height = height;
@@ -28,6 +30,8 @@ class Game {
   /** makeHtmlBoard: make HTML table and row of column tops. */
   makeHtmlBoard() {
     const board = document.getElementById('board');
+
+    //TODO:Should reset existing boards
 
     // make column tops (clickable area for adding a piece to that column)
     const top = document.createElement('tr');
@@ -112,6 +116,7 @@ class Game {
   }
 
   checkForWin() {
+    //TODO: make arrow function to not highjack `this`
     function _win(cells) {
       // Check four cells to see if they're all color of current player
       //  - cells: list of four (y, x) cells
