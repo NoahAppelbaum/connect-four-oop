@@ -11,6 +11,24 @@ const HEIGHT = 6;
 let currPlayer = 1; // active player: 1 or 2
 let board = []; // array of rows, each row is array of cells  (board[y][x])
 
+
+class Game {
+  constructor(height = 7, width = 6, board = []) {
+    this.height = height;
+    this.width = width;
+    this.board = board;
+  }
+  makeBoard() {
+    for (let y = 0; y < this.height; y++) {
+      this.board.push(Array.from({ length: this.width }));
+    }
+  }
+
+}
+
+
+
+
 /** makeBoard: create in-JS board structure:
  *   board = array of rows, each row is array of cells  (board[y][x])
  */
@@ -29,7 +47,7 @@ function makeHtmlBoard() {
   // make column tops (clickable area for adding a piece to that column)
   const top = document.createElement('tr');
   top.setAttribute('id', 'column-top');
-  
+
   for (let x = 0; x < WIDTH; x++) {
     const headCell = document.createElement('td');
     headCell.setAttribute('id', x);
