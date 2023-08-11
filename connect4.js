@@ -177,6 +177,12 @@ class Player {
     this.color = color;
     this.playerNum = playerNum;
   }
+
+  /**method to re-assign color from form input */
+  reassignColor() {
+    let colorInput = document.getElementById(`p${this.playerNum}-color-input`).value;
+    if (colorInput) this.color = colorInput;
+  }
 }
 
 const p1 = new Player("red", 1);
@@ -184,7 +190,10 @@ const p2 = new Player("aquamarine", 2);
 
 new Game(6, 7);
 
-let button = document.getElementById('new-game');
-button.addEventListener('click', () => {
+let FORM = document.querySelector('form');
+FORM.addEventListener('submit', (e) => {
+  e.preventDefault();
+  p1.reassignColor();
+  p2.reassignColor();
   new Game();
 });
