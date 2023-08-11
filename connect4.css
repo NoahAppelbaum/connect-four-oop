@@ -32,3 +32,9 @@
 #column-top td:hover {
   background-color: gold;
 }
+
+#new-game {
+  border-radius: 10px;
+  margin: 0 auto;
+  display: block;
+}
