@@ -16,6 +16,7 @@ class Game {
     this.width = width;
     this.board = [];
     this.currPlayer = 1; // active player: 1 or 2
+    this.gameOver = false;
 
     this.makeBoard();
     this.makeHtmlBoard();
@@ -94,9 +95,14 @@ class Game {
   endGame(msg) {
     alert(msg);
   }
-
+    // debugger;
   /** handleClick: handle click of column top to play piece */
   handleClick(evt) {
+    // check for gameOver state
+    if (this.gameOver === true) {
+      return;
+    }
+    // debugger;
     // get x from ID of clicked cell
     console.log("event target id: ", evt.target.id);
     const x = +evt.target.id;
@@ -113,8 +119,11 @@ class Game {
 
     // check for win
     if (this.checkForWin.call(this)) {
+      this.gameOver = true;
       return this.endGame(`Player ${this.currPlayer} won!`);
+
     }
+    // debugger;
 
     // check for tie
     if (this.board.every(row => row.every(cell => cell))) {
@@ -164,3 +173,8 @@ class Game {
 }
 
 new Game(6, 7);
+
+let button = document.getElementById('new-game');
+button.addEventListener('click', () => {
+  new Game ();
+})
