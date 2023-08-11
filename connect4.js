@@ -15,7 +15,7 @@ class Game {
     this.height = height;
     this.width = width;
     this.board = [];
-    this.currPlayer = 1; // active player: 1 or 2
+    this.currPlayer = p1; // active player: 1 or 2
     this.gameOver = false;
 
     this.makeBoard();
@@ -85,7 +85,7 @@ class Game {
   placeInTable(y, x) {
     const piece = document.createElement('div');
     piece.classList.add('piece');
-    piece.classList.add(`p${this.currPlayer}`);
+    piece.style.backgroundColor = this.currPlayer.color;
 
     const spot = document.getElementById(`c-${y}-${x}`);
     spot.append(piece);
@@ -95,7 +95,7 @@ class Game {
   endGame(msg) {
     alert(msg);
   }
-    // debugger;
+  // debugger;
   /** handleClick: handle click of column top to play piece */
   handleClick(evt) {
     // check for gameOver state
@@ -114,13 +114,13 @@ class Game {
     }
 
     // place piece in board and add to HTML table
-    this.board[y][x] = this.currPlayer;
+    this.board[y][x] = this.currPlayer.playerNum;
     this.placeInTable(y, x);
 
     // check for win
     if (this.checkForWin.call(this)) {
       this.gameOver = true;
-      return this.endGame(`Player ${this.currPlayer} won!`);
+      return this.endGame(`Player ${this.currPlayer.playerNum} won!`);
 
     }
     // debugger;
@@ -131,7 +131,7 @@ class Game {
     }
 
     // switch players
-    this.currPlayer = this.currPlayer === 1 ? 2 : 1;
+    this.currPlayer = this.currPlayer === p1 ? p2 : p1;
   }
 
   checkForWin() {
@@ -147,7 +147,7 @@ class Game {
           y < this.height &&
           x >= 0 &&
           x < this.width &&
-          this.board[y][x] === this.currPlayer
+          this.board[y][x] === this.currPlayer.playerNum
       );
     };
 
@@ -172,9 +172,19 @@ class Game {
 
 }
 
+class Player {
+  constructor(color, playerNum) {
+    this.color = color;
+    this.playerNum = playerNum;
+  }
+}
+
+const p1 = new Player("red", 1);
+const p2 = new Player("aquamarine", 2);
+
 new Game(6, 7);
 
 let button = document.getElementById('new-game');
 button.addEventListener('click', () => {
-  new Game ();
-})
+  new Game();
+});
